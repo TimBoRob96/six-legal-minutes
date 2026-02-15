@@ -108,6 +108,10 @@
       margin-bottom: 1rem;
     }
 
+    .grid > * {
+      min-width: 0;
+    }
+
     label {
       display: grid;
       gap: 0.3rem;
@@ -120,6 +124,9 @@
 
     input[type="time"] {
       width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      display: block;
       border: 1px solid var(--line-strong);
       border-radius: 4px;
       padding: 0.6rem 0.7rem;
