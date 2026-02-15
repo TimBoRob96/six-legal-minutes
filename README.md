@@ -6,7 +6,7 @@ Starter scaffold for your solicitor billing app.
 - `git` repository initialized on `main`
 - Docker image setup (`Dockerfile`, `.dockerignore`)
 - Fly.io config (`fly.toml`)
-- Placeholder web page in `app/index.html`
+- Web app in `app/index.html` with legal-style calculator UI
 
 ## Local Docker run
 ```bash
@@ -26,6 +26,3 @@ Deploy:
 fly launch --no-deploy
 fly deploy
 ```
-
-## Next step
-Replace `app/index.html` with your calculator UI and logic.
