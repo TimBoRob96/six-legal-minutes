@@ -2,6 +2,8 @@
 
 Starter scaffold for your solicitor billing app.
 
+Live app: `https://six-legal-minutes.fly.dev`
+
 ## Included
 - `git` repository initialized on `main`
 - Docker image setup (`Dockerfile`, `.dockerignore`)
@@ -26,3 +28,25 @@ Deploy:
 fly launch --no-deploy
 fly deploy
 ```
+
+## Deployment (recommended)
+This repo auto-deploys to Fly.io using GitHub Actions on every push to `main`.
+
+Workflow:
+- File: `.github/workflows/deploy.yml`
+- Trigger: `push` to `main` (also supports manual `workflow_dispatch`)
+- Command run by CI: `flyctl deploy --remote-only --config fly.toml`
+
+Required GitHub secret:
+- `FLY_API_TOKEN` (set in repo Settings -> Secrets and variables -> Actions)
+
+Release steps:
+```bash
+git add .
+git commit -m "Your change summary"
+git push origin main
+```
+
+Then monitor:
+- GitHub Actions run for "Deploy to Fly"
+- Live URL: `https://six-legal-minutes.fly.dev`
