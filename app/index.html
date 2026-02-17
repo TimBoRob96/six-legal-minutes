@@ -88,6 +88,84 @@
       background: linear-gradient(180deg, #fcfffc, #f8fdf9);
     }
 
+    .top-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin: 0.25rem 0 0.65rem;
+    }
+
+    .info-btn {
+      margin: 0;
+      background: #ffffff;
+      color: #173929;
+      border: 1px solid var(--line-strong);
+      padding: 0.42rem 0.72rem;
+      font-size: 0.8rem;
+    }
+
+    .info-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(9, 22, 14, 0.4);
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+    }
+
+    .info-panel[hidden] {
+      display: none;
+    }
+
+    .info-sheet {
+      width: min(720px, 100%);
+      max-height: min(80vh, 760px);
+      overflow: auto;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      background: #fffffd;
+      box-shadow: 0 10px 26px rgba(12, 30, 19, 0.24);
+      padding: 1.1rem 1rem;
+    }
+
+    .info-sheet h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #1e3a2b;
+    }
+
+    .info-sheet h3 {
+      margin: 0.95rem 0 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #244133;
+      font-size: 0.9rem;
+    }
+
+    .info-sheet p {
+      margin: 0.3rem 0 0.45rem;
+      color: #2f4a3c;
+      line-height: 1.45;
+      font-size: 0.98rem;
+    }
+
+    .info-sheet ul {
+      margin: 0.2rem 0 0;
+      padding-left: 1.15rem;
+      color: #2f4a3c;
+    }
+
+    .info-sheet li + li {
+      margin-top: 0.28rem;
+    }
+
+    .close-info-btn {
+      margin-top: 1rem;
+      margin-bottom: 0;
+    }
+
     .brand {
       display: block;
       margin-bottom: 0.55rem;
@@ -315,6 +393,10 @@
 </head>
 <body>
   <main class="card">
+    <div class="top-actions">
+      <button id="infoBtn" class="info-btn" type="button" aria-haspopup="dialog" aria-controls="infoPanel">Information</button>
+    </div>
+
     <div class="heading">
       <div class="brand">
         <img class="brand-logo" src="media/logo.PNG" alt="Six Legal Minutes logo" />
@@ -322,6 +404,19 @@
       <small>Legal Timekeeping Utility</small>
       <p>Enter attendance start and finish times to produce billable rounded values.</p>
     </div>
+
+    <section id="infoPanel" class="info-panel" role="dialog" aria-modal="true" aria-labelledby="infoTitle" hidden>
+      <article class="info-sheet">
+        <h2 id="infoTitle">About Six Legal Minutes</h2>
+        <p>Solicitors record their time in six-minute units. In reality, that usually starts with a simple start and end time, followed by the slightly tedious job of rounding to the nearest six minutes.</p>
+        <p>It's small.<br />But it happens constantly.</p>
+        <p>Six Legal Minutes was built to make that conversion instant and accurate, turning real working time into compliant, billable units in seconds.</p>
+        <p>This app was originally created for my lovely wife-to-be, Tanith.</p>
+        <p>Built with care.<br />For someone I love.</p>
+        <p>&mdash; Tim</p>
+        <button id="closeInfoBtn" class="close-info-btn" type="button">Close</button>
+      </article>
+    </section>
 
     <div class="grid">
       <label for="startTime">
@@ -479,6 +574,35 @@
       }
       updateCardTitles();
     }
+
+    const infoBtn = document.getElementById("infoBtn");
+    const infoPanel = document.getElementById("infoPanel");
+    const closeInfoBtn = document.getElementById("closeInfoBtn");
+
+    function openInfo() {
+      infoPanel.hidden = false;
+      closeInfoBtn.focus();
+    }
+
+    function closeInfo() {
+      infoPanel.hidden = true;
+      infoBtn.focus();
+    }
+
+    infoBtn.addEventListener("click", openInfo);
+    closeInfoBtn.addEventListener("click", closeInfo);
+
+    infoPanel.addEventListener("click", (event) => {
+      if (event.target === infoPanel) {
+        closeInfo();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !infoPanel.hidden) {
+        closeInfo();
+      }
+    });
 
     document.getElementById("calcBtn").addEventListener("click", calculate);
   </script>
